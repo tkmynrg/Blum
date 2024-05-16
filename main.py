@@ -4,16 +4,18 @@ from utils.blum import Start
 import asyncio
 from itertools import zip_longest
 from utils.core import get_all_lines
+import argparse
 
 
 async def main():
-    print("Soft's author: https://t.me/ApeCryptor\n")
-    action = int(input("Select action:\n1. Start claimer\n2. Create sessions\n\n> "))
-
-    if action == 2:
-        await create_sessions()
+    parser = argparse.ArgumentParser()
+    parser.add_argument('-a', '--action', type=int, help='Action to perform')
+    action = parser.parse_args().action
 
     if action == 1:
+        await create_sessions()
+
+    if action == 2:
         accounts = await Accounts().get_accounts()
         proxys = get_all_lines("data/proxy.txt")
 
